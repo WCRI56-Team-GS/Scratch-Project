@@ -1,23 +1,10 @@
 const path = require('path');
 const express = require("express");
 const cors = require("cors");
-const mongoose = require('mongoose')
-const userController = require('./controllers/userController')
 
 // setup app and port
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-const mongoURI = 'mongodb+srv://shendo87:UIOqlCfrXxZJYeJL@cluster0.kzkmgom.mongodb.net/?retryWrites=true&w=majority';
-mongoose.connect(mongoURI, {
-  // options for the connect method to parse the URI
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  // sets the name of the DB that our collections are part of
-  dbName: 'scratch_project'
-})
-  .then(() => console.log('Connected to Mongo DB.'))
-  .catch(err => console.log(err));
 
 // handle parsing request body
 app.use(express.json());
@@ -30,18 +17,7 @@ app.use(cors());
 app.use("/build", express.static(path.resolve(__dirname, "../build")));
 
 // define route handlers
-/**
-* login
-*/
-app.post('/login', 
-  userController.verifyUser, 
-  // sessionController.startSession, 
-  // cookieController.setSSIDCookie, 
-  (req, res) => {
-  // what should happen here on successful log in?
-    res.redirect('/secret');
-    console.log('request to login')
-});
+
 
 // server index.html
 app.get("/", (req, res) => {
