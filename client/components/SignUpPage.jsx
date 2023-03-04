@@ -1,13 +1,23 @@
 import React, { Component } from 'react';
 import { useState, useEffect, useContext } from 'react';
 import UserProvider from '../UserContext';
+import UserContext from '../UserContext';
 
-function SignUpPage () {
+function SignUpPage ({user, setUser, password, setPassword, toggle}) {
 
   //STATE HERE IF NEEDED
-  const user = useContext(UserProvider)
-  const password = useContext(UserProvider)
+  // const user = useContext(UserProvider)
+  // const password = useContext(UserProvider)
+  // // const signUpToggle = useContext(UserProvider)
+  // // const setSignUpToggle = useContext(UserProvider)
+  // const [signUpToggle, setSignUpToggle] = useContext(UserContext)
 
+
+  // function toggle () {
+  //   console.log('toggle: ', typeof setSignUpToggle)
+  //   console.log(setSignUpToggle)
+  //   return setSignUpToggle(false)
+  // }
 
   //RENDER
   return (
@@ -21,12 +31,12 @@ function SignUpPage () {
             <label htmlFor="password">Password</label>
             <input type='password' required onChange={(e) => setPassword(e.target.value)}/>
             <button>Submit</button>
-            <div className='login-footer'>
-                Already have an account? <button onClick={() => setSignUpToggle(!signUpToggle)}>Sign in here!</button>
-            </div>
         </form>
+            <div className='login-footer'>
+                Already have an account? <button onClick={toggle}>Sign in here!</button>
+            </div>
     </div>
   )
 }
-
-export default LoginPage;
+ 
+export default SignUpPage;
