@@ -1,21 +1,28 @@
 import React from 'react';
 import { useState, useEffect, createContext } from 'react';
-import LoginPage from './LoginPage'
+import LoginPage from './components/LoginPage.jsx';
+import SignUpPage from './components/SignUpPage.jsx';
+import UserProvider from './UserContext';
 
-const UserContext = createContext();
 
 
 const App = () => {
-  const [ user, setUser ] = useState("");
+ 
 
   return (
-    <UserContext.Provider value={user}>
-      <LoginPage user={user} />
-      <div>
-        <h1>{`Hello ${user}!`}</h1>
-      </div>
-    </UserContext.Provider>
+    <>
+      <div>HELLLOOOO WORLDDDD</div>
+    <UserProvider>
+      {signUpToggle ? <LoginPage/> : <SignUpPage/>}
+    </UserProvider>
+
+    </>
+      
   )
 }
 
 export default App;
+
+{/* <div>
+        <h1>{`Hello ${user}!`}</h1>
+      </div> */}
