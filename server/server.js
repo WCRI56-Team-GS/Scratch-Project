@@ -1,23 +1,25 @@
-const path = require('path');
+const path = require("path");
 const express = require("express");
 const cors = require("cors");
-const mongoose = require('mongoose')
-const userController = require('./controllers/userController')
+const mongoose = require("mongoose");
+const userController = require("./controllers/userController");
 
 // setup app and port
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const mongoURI = 'mongodb+srv://shendo87:UIOqlCfrXxZJYeJL@cluster0.kzkmgom.mongodb.net/?retryWrites=true&w=majority';
-mongoose.connect(mongoURI, {
-  // options for the connect method to parse the URI
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  // sets the name of the DB that our collections are part of
-  dbName: 'scratch_project'
-})
-  .then(() => console.log('Connected to Mongo DB.'))
-  .catch(err => console.log(err));
+const mongoURI =
+  "mongodb+srv://shendo87:UIOqlCfrXxZJYeJL@cluster0.kzkmgom.mongodb.net/?retryWrites=true&w=majority";
+mongoose
+  .connect(mongoURI, {
+    // options for the connect method to parse the URI
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    // sets the name of the DB that our collections are part of
+    dbName: "scratch_project",
+  })
+  .then(() => console.log("Connected to Mongo DB."))
+  .catch((err) => console.log(err));
 
 // handle parsing request body
 app.use(express.json());
@@ -31,17 +33,20 @@ app.use("/build", express.static(path.resolve(__dirname, "../build")));
 
 // define route handlers
 /**
-* login
-*/
-app.post('/login', 
-  userController.verifyUser, 
-  // sessionController.startSession, 
-  // cookieController.setSSIDCookie, 
+ * login
+ */
+app.post(
+  "/login",
+  userController.verifyUser,
+  // sessionController.startSession,
+  // cookieController.setSSIDCookie,
   (req, res) => {
-  // what should happen here on successful log in?
-    res.redirect('/secret');
-    console.log('request to login')
-});
+    // what should happen here on successful log in?
+    console.log("completing post request to '/login");
+    // res.redirect('/secret');
+    res.sendStatus(399);
+  }
+);
 
 // server index.html
 app.get("/", (req, res) => {
@@ -57,10 +62,10 @@ app.use((err, req, res, next) => {
   const defaultErr = {
     log: "Express error handler caught unknown middleware error",
     status: 500,
-    message: { err: "An error occurred" },
+    message: { err: "An error occurred" + err },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
+  console.log(errorObj.message);
   return res.status(errorObj.status).json(errorObj.message);
 });
 
