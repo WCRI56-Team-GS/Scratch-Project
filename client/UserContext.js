@@ -1,3 +1,5 @@
+/* tried useContext()
+
 import React, { useContext, useState, createContext } from 'react';
 
 export const UserContext = React.createContext();
@@ -22,4 +24,4 @@ function UserProvider({ children }) {
  
 export default UserProvider;
 
-
+*/

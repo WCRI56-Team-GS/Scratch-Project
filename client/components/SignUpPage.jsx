@@ -1,23 +1,10 @@
 import React, { Component } from 'react';
-import { useState, useEffect, useContext } from 'react';
-import UserProvider from '../UserContext';
-import UserContext from '../UserContext';
+import { useState, useEffect } from 'react';
+
 
 function SignUpPage ({user, setUser, password, setPassword, toggle}) {
 
-  //STATE HERE IF NEEDED
-  // const user = useContext(UserProvider)
-  // const password = useContext(UserProvider)
-  // // const signUpToggle = useContext(UserProvider)
-  // // const setSignUpToggle = useContext(UserProvider)
-  // const [signUpToggle, setSignUpToggle] = useContext(UserContext)
-
-
-  // function toggle () {
-  //   console.log('toggle: ', typeof setSignUpToggle)
-  //   console.log(setSignUpToggle)
-  //   return setSignUpToggle(false)
-  // }
+ 
 
   //RENDER
   return (
@@ -40,3 +27,25 @@ function SignUpPage ({user, setUser, password, setPassword, toggle}) {
 }
  
 export default SignUpPage;
+
+
+
+
+/* tried useContext ...
+
+import UserProvider from '../UserContext';
+import UserContext from '../UserContext';
+STATE HERE IF NEEDED
+const user = useContext(UserProvider)
+const password = useContext(UserProvider)
+// const signUpToggle = useContext(UserProvider)
+// const setSignUpToggle = useContext(UserProvider)
+const [signUpToggle, setSignUpToggle] = useContext(UserContext)
+
+
+function toggle () {
+  console.log('toggle: ', typeof setSignUpToggle)
+  console.log(setSignUpToggle)
+  return setSignUpToggle(false)
+
+*/ 
