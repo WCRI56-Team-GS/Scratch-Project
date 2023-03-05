@@ -3,6 +3,9 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userController = require("./controllers/userController");
+const sessionController = require("./controllers/sessionController");
+const cookieController = require("./controllers/cookieController");
+const cookieParser = require("cookie-parser");
 
 // setup app and port
 const app = express();
@@ -24,6 +27,7 @@ mongoose
 // handle parsing request body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // enable ALL CORS requests
 app.use(cors());
@@ -31,22 +35,37 @@ app.use(cors());
 // handle requests for static files (bundle.js)
 app.use("/build", express.static(path.resolve(__dirname, "../build")));
 
-// define route handlers
-/**
- * login
- */
+// route handlers
+
 app.post(
   "/login",
   userController.verifyUser,
-  // sessionController.startSession,
-  // cookieController.setSSIDCookie,
+  sessionController.startSession,
+  cookieController.setSSIDCookie,
   (req, res) => {
     // what should happen here on successful log in?
     console.log("completing post request to '/login");
     // res.redirect('/secret');
-    res.sendStatus(399);
+    res.redirect("/");
   }
 );
+
+app.post(
+  "/signup",
+  userController.createUser,
+  sessionController.startSession,
+  cookieController.setSSIDCookie,
+  (req, res) => {
+    // what should happen here on successful log in?
+    console.log("completing post request to '/login");
+    // res.redirect('/secret');
+    res.redirect("/");
+  }
+);
+
+app.use("/api", sessionController.isLoggedIn, (req, res) => {
+  console.log('completing request to "/api"');
+});
 
 // server index.html
 app.get("/", (req, res) => {

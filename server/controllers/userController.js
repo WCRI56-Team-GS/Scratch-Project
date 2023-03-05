@@ -3,12 +3,45 @@ const path = require("path");
 
 const userController = {};
 
-/**
- * verifyUser - Obtain username and password from the request body, locate
- * the appropriate user in the database, and then authenticate the submitted password
- * against the password stored in the database.
- */
+// Create new user
+userController.createUser = (req, res, next) => {
+  console.log('running userController.createUser');
+  const {username, password} = req.body;
+
+  if (!username || !password) {
+    console.log(
+      "Error in userController.verifyUser: username and password must be provided"
+    );
+    return next({
+      log: "userController.createUser",
+      message: { err: "userController.createUser: username and password must be provided"},
+    });
+  }
+  User.create({username, password})
+    .exec()
+    .then((user) => {
+      if (!user || password !== user.password) {
+        console.log("no password match");
+        return res.redirect("/signup");
+      }
+      // valid user
+      else {
+        console.log("res.locals: ", res.locals);
+        res.locals.user = user;
+        return next();
+      }
+      })
+      .catch((err) => {
+        return next({
+          log: "userController.verifyUser",
+          message: { err: "userController.verifyUser" + err },
+        });
+      });
+  }
+
+// Verify user
 userController.verifyUser = (req, res, next) => {
+  console.log("running userController.verifyUser");
   const { username, password } = req.body;
 
   // ERROR HANDLING
@@ -30,7 +63,6 @@ userController.verifyUser = (req, res, next) => {
       }
       // valid user
       else {
-        console.log("user: ", user);
         console.log("res.locals: ", res.locals);
         res.locals.user = user;
         return next();
@@ -38,12 +70,10 @@ userController.verifyUser = (req, res, next) => {
     })
     .catch((err) => {
       return next({
-        log: "Express error handler caught unknown middleware error",
-        status: 500,
-        message: { err: "An error occurred" + err },
-      })
-  });
-
+        log: "userController.verifyUser",
+        message: { err: "userController.verifyUser" + err },
+      });
+    });
 };
 
 module.exports = userController;
