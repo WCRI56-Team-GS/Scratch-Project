@@ -37,7 +37,7 @@ userController.createUser = (req, res, next) => {
           message: { err: "userController.verifyUser" + err },
         });
       });
-  }
+  } // PULL USER ID JUST LIKE VERIFY
 
 // Verify user
 userController.verifyUser = (req, res, next) => {
