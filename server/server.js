@@ -67,6 +67,13 @@ app.post(
   }
 );
 
+app.use('/sessionTest',
+  sessionController.isLoggedIn,
+  (req, res) => {
+    console.log('user isLoggedIn successfully.  Returning status 418');
+    res.sendStatus(418);
+  })
+
 app.use("/api", sessionController.isLoggedIn, (req, res) => {
   console.log('completing request to "/api"');
 });

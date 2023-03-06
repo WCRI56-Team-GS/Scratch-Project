@@ -18,15 +18,26 @@ function HomePage() {
       //Should receive an object which we can use to setState OR pass onto Columns component
 
 
-  return (
-    <>
-      <form>
-        <div> Home Page
-          <button className="logOut">LOG OUT</button>
+    return (
+      <>
+        <div>
+          <div> Home Page
+            <button className="logOut" onClick={() => (console.log('logout button clicked '))}>LOG OUT</button>
+          </div>
+          <div>
+              <button className="addColumn" onClick={() => setShowColumnModal(true)}>ADD MODAL</button>
+              {console.log(showColumnModal)}
+          </div>
+        </div>
+        <div className="modal-box">
+        {/* when showModal is set to true a column modal will render */}
+        {/* having issues with page re-rendering when state is updated. modal does not stay up */}
+        {/* {showColumnModal && <ColumnModal showColumnModal={showColumnModal} setShowColumnModal={setShowColumnModal} />} */}
+        {showColumnModal ? (<ColumnModal showColumnModal={showColumnModal} setShowColumnModal={setShowColumnModal} />) : (<></>)}
         </div>
         <div>
-            <button className="addColumn" onClick={() => setShowColumnModal(true)}>ADD COLUMN</button>
-            {console.log(showColumnModal)}
+          {/* Populate with Column components */}
+          {/* <Column columns={columns}/> */}
         </div>
       </form>
       <div className="modal-box">
