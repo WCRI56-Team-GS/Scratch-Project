@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const userController = require("./controllers/userController");
 const sessionController = require("./controllers/sessionController");
 const cookieController = require("./controllers/cookieController");
+const boardController = require("./controllers/boardController");
 const cookieParser = require("cookie-parser");
 
 // setup app and port
@@ -36,6 +37,9 @@ app.use(cors());
 app.use("/build", express.static(path.resolve(__dirname, "../build")));
 
 // route handlers
+app.post('/api', userController.getBoardIds, boardController.getBoards, (req, res) => {
+  res.status(200).json(res.locals.boards)
+})
 
 app.post(
   "/login",

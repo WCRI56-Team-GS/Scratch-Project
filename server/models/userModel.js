@@ -13,7 +13,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  board_ids: [Number],
+  board_ids: [String],
 });
 
 // userSchema.pre('save', function(next) {

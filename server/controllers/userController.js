@@ -21,10 +21,11 @@ userController.createUser = (req, res, next) => {
       })
       .catch((err) => {
         if (err.code === 11000) {
+          console.log(err)
           return next ({
             log: "userController.verifyUser",
             status: 400,
-            message: { err },
+            message: { err: 'username already exists' },
           })
         }
         return next({
@@ -69,6 +70,23 @@ userController.verifyUser = (req, res, next) => {
         message: { err: "userController.verifyUser" + err },
       });
     });
+};
+
+userController.getBoardIds= (req, res, next) => {
+  let { username } = req.body;
+
+  User.findOne({username}).exec()
+    .then(response => {
+      res.locals.boardIds = response.board_ids
+      return next();
+    })
+    .catch((err) => {
+      return next({
+        log: "error in boardController.getBoardIds",
+        message: { err: "boardController.getBoardIds" + err },
+      });
+    });
+
 };
 
 module.exports = userController;
