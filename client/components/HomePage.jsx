@@ -39,8 +39,18 @@ function HomePage() {
           {/* Populate with Column components */}
           {/* <Column columns={columns}/> */}
         </div>
-      </>
-    );
+      </form>
+      <div className="modal-box">
+      {/* when showModal is set to true a column modal will render */}
+      {/* having issues with page re-rendering when state is updated. modal does not stay up */}
+      {showColumnModal && <ColumnModal setShowColumnModal={setShowColumnModal} />}
+      </div>
+      <div>
+        {/* //Populate with Column components */}
+        {/* <Column columns={columns}/> */}
+      </div>
+    </>
+  );
 
 }
 
