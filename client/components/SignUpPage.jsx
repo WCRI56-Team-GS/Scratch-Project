@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { useState, useEffect, useContext } from 'react';
-
-function SignUpPage () {
-
-  //STATE HERE IF NEEDED
+import { useState, useEffect } from 'react';
 
 
+function SignUpPage ({user, setUser, password, setPassword, toggle}) {
+
+ 
 
   //RENDER
   return (
@@ -13,18 +12,40 @@ function SignUpPage () {
         <div className='login-header'>
             Create a new Account:
         </div>
-        <form onSubmit={}>
+        <form onSubmit={console.log('created new account')}>
             <label htmlFor="username">Username/Email</label>
-            <input type='text' required onChange={(e) => }/>
+            <input type='text' required onChange={(e) => setUser(e.target.value)}/>
             <label htmlFor="password">Password</label>
-            <input type='password' required onChange={(e) => }/>
+            <input type='password' required onChange={(e) => setPassword(e.target.value)}/>
             <button>Submit</button>
-            <div className='login-footer'>
-                Already have an account? <button>Sign in here!</button>
-            </div>
         </form>
+            <div className='login-footer'>
+                Already have an account? <button onClick={toggle}>Sign in here!</button>
+            </div>
     </div>
   )
 }
+ 
+export default SignUpPage;
 
-export default LoginPage;
+
+
+
+/* tried useContext ...
+
+import UserProvider from '../UserContext';
+import UserContext from '../UserContext';
+STATE HERE IF NEEDED
+const user = useContext(UserProvider)
+const password = useContext(UserProvider)
+// const signUpToggle = useContext(UserProvider)
+// const setSignUpToggle = useContext(UserProvider)
+const [signUpToggle, setSignUpToggle] = useContext(UserContext)
+
+
+function toggle () {
+  console.log('toggle: ', typeof setSignUpToggle)
+  console.log(setSignUpToggle)
+  return setSignUpToggle(false)
+
+*/ 
