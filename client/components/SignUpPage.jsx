@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { useState, useEffect } from 'react';
 
 
-function SignUpPage ({user, setUser, password, setPassword, toggle}) {
+function SignUpPage ({user, setUser, password, setPassword, toggle, isLoggedIn, setLogin}) {
 
  
 
@@ -12,7 +12,7 @@ function SignUpPage ({user, setUser, password, setPassword, toggle}) {
         <div className='login-header'>
             Create a new Account:
         </div>
-        <form onSubmit={console.log('created new account')}>
+        <form onSubmit={console.log('creating new account')}>
             <label htmlFor="username">Username/Email</label>
             <input type='text' required onChange={(e) => setUser(e.target.value)}/>
             <label htmlFor="password">Password</label>

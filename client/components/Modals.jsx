@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { useState, useEffect } from "react";
 
 // Modal for the columns
-const ColumnModal = ({ showColumnModal, setShowColumnModal }) => {
+const ColumnModal = ({ setShowColumnModal }) => {
  
   const saveData = () => {
     // post users data to database
@@ -28,11 +28,11 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal }) => {
           />
         </form>
         <button className="modal-text-button"
-          onClick={() => {saveData}}>
+          onClick={{saveData}}>
             SAVE
         </button>
         <button className="modal-text-button"
-          onClick={() => {deleteData}}>
+          onClick={{deleteData}}>
             DELETE
         </button>
       </div>
@@ -65,11 +65,11 @@ const CardModal = ({  showCardModal,setShowCardModal }) => {
           />
         </form>
         <button className="modal-text-button"
-          onClick={saveData}>
+          onClick={addTask}>
            +
         </button>
         <button className="modal-text-button"
-          onClick={deleteData}>
+          onClick={deleteTask}>
             X
         </button>
       </div>
