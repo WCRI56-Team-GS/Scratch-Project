@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { useState, useEffect } from 'react';
 import HomePage from './HomePage.jsx'
-import { Outlet, Link } from "react-router-dom";
+// import { Outlet, Link } from "react-router-dom";
 
 function LoginPage ({user, setUser, password, setPassword, toggle, isLoggedIn, setLogin}) {
 
@@ -18,14 +18,11 @@ function LoginPage ({user, setUser, password, setPassword, toggle, isLoggedIn, s
                 <input className='user-input' type='text' required onChange={(e) => setUser(e.target.value)}/>
                 <label className='login-text' htmlFor="password">Password</label>
                 <input className='user-input' type='password' required onChange={(e) => setPassword(e.target.value)}/>
-                <Link to="/HomePage">
-                    <button>Submit</button>
-                </Link>
+                <button>Submit</button>
             </form>
                 <div className='login-footer'>
                     Don't have an Account? <button onClick={toggle}>Sign up here!</button>
                 </div>
-            {isLoggedIn && <HomePage />}
         </div>
     )
 }

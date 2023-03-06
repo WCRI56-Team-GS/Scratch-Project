@@ -8,7 +8,7 @@ import HomePage from './components/HomePage.jsx';
 
 const App = () => {
 
-  const [ signUpToggle, setSignUpToggle ] = useState(true);
+  const [ signUpToggle, setSignUpToggle ] = useState('');
   const [ user, setUser ] = useState("");
   const [ password, setPassword ] = useState("")
   const [ isLoggedIn, setLogin ] = useState(true);
@@ -22,6 +22,16 @@ const App = () => {
     <>
       <div>HELLLOOOO WORLDDDD</div>
       {signUpToggle ? (
+        <SignUpPage
+        user={user}
+        setUser={setUser}
+        password={password}
+        setPassword={setPassword}
+        toggle={toggle}
+        isLoggedIn={isLoggedIn}
+        setLogin={setLogin}
+      />
+      ) : (
         <LoginPage
           user={user}
           setUser={setUser}
@@ -31,25 +41,17 @@ const App = () => {
           isLoggedIn={isLoggedIn}
           setLogin={setLogin}
         />
-      ) : (
-        <SignUpPage
-          user={user}
-          setUser={setUser}
-          password={password}
-          setPassword={setPassword}
-          toggle={toggle}
-          isLoggedIn={isLoggedIn}
-          setLogin={setLogin}
-        />
+
       )}
-      <BrowserRouter>
+      {/* <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />}>
             <Route path="signup" element={<SignUpPage />} />
             <Route index element={<HomePage />} />
           </Route>
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter> */}
+      <HomePage/>
     </>
   );
 }

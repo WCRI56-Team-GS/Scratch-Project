@@ -7,11 +7,11 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal }) => {
   const saveData = () => {
     // post users data to database
     console.log('save data button is running')
-    setShowColumnModal(false)
+    setShowColumnModal(!showColumnModal)
   }
 
   const deleteData = () => {
-    setShowColumnModal(false)
+    setShowColumnModal(!showColumnModal)
   }
 
   return (
@@ -28,11 +28,11 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal }) => {
           />
         </form>
         <button className="modal-text-button"
-          onClick={() => {saveData}}>
+          onClick={() => saveData()}>
             SAVE
         </button>
         <button className="modal-text-button"
-          onClick={() => {deleteData}}>
+          onClick={() => deleteData()}>
             DELETE
         </button>
       </div>
@@ -45,11 +45,11 @@ const CardModal = ({  showCardModal,setShowCardModal }) => {
 
   const addTask = () => {
     // post users data to database
-    setShowCardModal(false)
+    setShowCardModal(!showCardModal)
   }
 
   const deleteTask = () => {
-    setShowCardModal(false)
+    setShowCardModal(!showCardModal)
   }
 
   return (
@@ -65,11 +65,11 @@ const CardModal = ({  showCardModal,setShowCardModal }) => {
           />
         </form>
         <button className="modal-text-button"
-          onClick={saveData}>
+          onClick={() => addTask}>
            +
         </button>
         <button className="modal-text-button"
-          onClick={deleteData}>
+          onClick={() => deleteTask}>
             X
         </button>
       </div>
