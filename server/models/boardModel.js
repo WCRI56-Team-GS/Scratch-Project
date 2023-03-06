@@ -22,4 +22,4 @@ const boardSchema = new Schema({
   ]
 });
 
-module.exports = mongoose.model('Session', sessionSchema);
+module.exports = mongoose.model('boards', boardSchema);
