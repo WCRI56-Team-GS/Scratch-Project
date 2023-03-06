@@ -17,7 +17,7 @@ function SignUpPage ({user, setUser, password, setPassword, toggle, isLoggedIn, 
             <input type='text' required onChange={(e) => setUser(e.target.value)}/>
             <label htmlFor="password">Password</label>
             <input type='password' required onChange={(e) => setPassword(e.target.value)}/>
-            <button>Submit</button>
+            <button onClick={() => (console.log('open homepage'))}>Submit</button>
         </form>
             <div className='login-footer'>
                 Already have an account? <button onClick={toggle}>Sign in here!</button>
