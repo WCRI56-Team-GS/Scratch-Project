@@ -60,7 +60,7 @@ userController.verifyUser = (req, res, next) => {
       // valid user
       else {
         console.log("res.locals: ", res.locals);
-        res.locals.user = user;
+        res.locals.user = user;  // _id, username, password, boardIDs
         return next();
       }
     })
@@ -73,6 +73,7 @@ userController.verifyUser = (req, res, next) => {
 };
 
 userController.getBoardIds= (req, res, next) => {
+  console.log('running userController.getBoardIds. req.body: ', req.body)
   let { username } = req.body;
 
   User.findOne({username}).exec()
@@ -82,8 +83,8 @@ userController.getBoardIds= (req, res, next) => {
     })
     .catch((err) => {
       return next({
-        log: "error in boardController.getBoardIds",
-        message: { err: "boardController.getBoardIds" + err },
+        log: "error in userController.getBoardIds",
+        message: { err: "userController.getBoardIds" + err },
       });
     });
 

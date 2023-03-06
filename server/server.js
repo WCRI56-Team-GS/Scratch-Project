@@ -37,8 +37,11 @@ app.use(cors());
 app.use("/build", express.static(path.resolve(__dirname, "../build")));
 
 // route handlers
-app.post('/api', userController.getBoardIds, boardController.getBoards, (req, res) => {
-  res.status(200).json(res.locals.boards)
+app.post('/api', 
+  userController.getBoardIds, 
+  boardController.getBoards, 
+  (req, res) => {
+    res.status(200).json(res.locals.boards)
 })
 
 app.post(
