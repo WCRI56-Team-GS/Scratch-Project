@@ -5,43 +5,38 @@ const userController = {};
 
 // Create new user
 userController.createUser = (req, res, next) => {
-  console.log('running userController.createUser');
+
   const {username, password} = req.body;
 
   if (!username || !password) {
-    console.log(
-      "Error in userController.verifyUser: username and password must be provided"
-    );
     return next({
       log: "userController.createUser",
       message: { err: "userController.createUser: username and password must be provided"},
     });
   }
   User.create({username, password})
-    .exec()
     .then((user) => {
-      if (!user || password !== user.password) {
-        console.log("no password match");
-        return res.redirect("/signup");
-      }
-      // valid user
-      else {
-        console.log("res.locals: ", res.locals);
         res.locals.user = user;
-        return next();
-      }
+        next();
       })
       .catch((err) => {
+        if (err.code === 11000) {
+          return next ({
+            log: "userController.verifyUser",
+            status: 400,
+            message: { err },
+          })
+        }
         return next({
           log: "userController.verifyUser",
           message: { err: "userController.verifyUser" + err },
         });
       });
-  } // PULL USER ID JUST LIKE VERIFY
+  }
 
 // Verify user
 userController.verifyUser = (req, res, next) => {
-  console.log("running userController.verifyUser");
+
   const { username, password } = req.body;
 
   // ERROR HANDLING

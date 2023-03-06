@@ -57,7 +57,7 @@ app.post(
   cookieController.setSSIDCookie,
   (req, res) => {
     // what should happen here on successful log in?
-    console.log("completing post request to '/login");
+    console.log("completing post request to '/signup");
     // res.redirect('/secret');
     res.redirect("/");
   }
@@ -84,7 +84,7 @@ app.use((err, req, res, next) => {
     message: { err: "An error occurred" + err },
   };
   const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.message);
+  console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
 
