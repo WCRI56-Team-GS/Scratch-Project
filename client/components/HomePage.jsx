@@ -4,13 +4,13 @@ import  { ColumnModal, CardModal } from './Modals.jsx';
 import Column from './Column.jsx'
 
 function HomePage({user, isLoggedIn, setLogin}) {
-
   // state to render a column creation modal
   const [ showColumnModal, setShowColumnModal ] = useState(false)
   // state to render a card creation modal
   const [ showCardModal, setShowCardModal ] = useState(false)
   // const [columnsState, setColumns] = useState(null);
   const [ boardData, setBoardData ] = useState([]);
+  const [ currBoardID, setCurrBoardID] = useState('');
 
   //render columns and cards within 
   // [
@@ -43,6 +43,7 @@ function HomePage({user, isLoggedIn, setLogin}) {
       }).then((res) => res.json())
       .then((data) => {
         setBoardData(data);
+        setCurrBoardID(data[0]._id)
       })
       .catch((error) => {
         console.log('Error fetching boardData in APP.jsx:', error)
@@ -59,11 +60,8 @@ function HomePage({user, isLoggedIn, setLogin}) {
     }
     let overlay = null;
 
-    useEffect(() => {
-      if (showColumnModal) overlay = <div className="overlay"></div>
-      else overlay = null;
-    }, [showColumnModal, showCardModal])
-    console.log('showColumnModal: ', showColumnModal)
+    if (showColumnModal || showCardModal) overlay = <div className="overlay"></div>
+    else overlay = null;
 
     return (
       <div className='homeCont'>
@@ -87,6 +85,7 @@ function HomePage({user, isLoggedIn, setLogin}) {
               showCardModal={showCardModal} 
               setShowCardModal={setShowCardModal}
               boardData={boardData}
+              currBoardID={currBoardID}
               setBoardData={setBoardData} />) 
               : (<></>)
             }

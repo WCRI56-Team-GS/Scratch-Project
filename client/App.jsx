@@ -21,8 +21,8 @@ const App = () => {
   }
 
   useEffect(() => {
-
-  },[loginError, isLoggedIn])
+    if (loginError === true) alert('Incorrect username or password. Please try again');
+  },[loginError])
 
   return (
     <>
@@ -50,7 +50,8 @@ const App = () => {
         />
       )
       )}
-      {loginError ? (<div>Incorrect username or password. Please try again</div>) : <></>}
+      {/* {loginError ? (<div>Incorrect username or password. Please try again</div>) : <></>} */}
+      
     </>
   );
 }

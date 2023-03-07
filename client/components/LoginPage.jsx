@@ -15,13 +15,13 @@ function LoginPage ({user, setUser, password, setPassword, toggle, isLoggedIn, s
             body: JSON.stringify(loginData)
         }).then((res) => {
             console.log(res.status)
-            // if (res.status === 404) {
-            //     setLogin(false)
-            //     setLoginError(true)
-            // } else {
+            if (res.status === 404) {
+                setLogin(false)
+                setLoginError(true)
+            } else {
                 setLogin(true);
                 setLoginError(false);
-            // }
+            }
             console.log('logged in on LoginPage.jsx')
             // console.log('users data', user)
         }).catch((error) => {
