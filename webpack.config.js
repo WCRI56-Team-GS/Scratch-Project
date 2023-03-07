@@ -35,6 +35,8 @@ module.exports = {
     port: 8080,
     proxy: {
       "/api": "http://localhost:3000",
+      "/login": "http://localhost:3000",
+      "/signup": "http://localhost:3000"
     },
   },
 };

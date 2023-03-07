@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
+import Column from './Column.jsx'
 
 // Modal for the columns
-const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setShowCardModal, boardData, setBoardData}) => {
- 
+const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setShowCardModal, boardData, setBoardData, currBoardID}) => {
   
   /*
   boardData {
@@ -20,18 +20,51 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setSh
       ]
     }
   */
+ 
 
   const saveData = () => {
     // get the value from the input field
     const newColumnName = document.querySelector('.modal-column-input').value;
 
     // store it somewhere (local?)
-    console.log('boardData: ', boardData);
-    console.log('boardColumnData: ', boardData[0].columns);
+    console.log('boardData from line 29: ', boardData);
+    console.log('typeof boardData[0]: ', typeof boardData[0]);
     // our local state needs to reflect added column
-    // setBoardData(data => ({
+    const columnName = boardData[0]
+    console.log('line 33: ', columnName)
+    console.log('type of columnName: ', typeof columnName.columns)
+
+    const newBoardData = boardData.map(board => {
+      console.log('board: ', board)
+      console.log('currBoardID: ', currBoardID)
+      if (board._id === currBoardID) {
+        console.log('board and ID match')
+        board.columns.push({columnName: newColumnName, cards: [{cardText: 'Hello, I\'m a new column!'}]})
+        console.log('board: ', board)
+      }
+      return board;
+    })
+    console.log('newBoardData: ', newBoardData);
+    setBoardData(newBoardData)
+    console.log(boardData)
+
+
+    // [{board1}, {board2}, {board3}]
+    // grab our current board by currBoardID
+    // create a newArrayOfBoards without the currBoard (filter by currBoardID)
+    // update current board
+    // add to array of boards
+    // setBoardData(newArrayOfBoards)
+
+
+
+    // setBoardData([{}])
+    // boardData = array of BoardObjs
+    // filter currentBoard 
+
+    // setBoardData((data) => ({
     //   ...data,
-    //   columns: columns.columnName.push(newColumnName)
+    //   columnName: newColumnName
     // }))
     // send a request to DB to udpate Board with new column
     // toggle columnModal
@@ -48,17 +81,18 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setSh
 
   return (
     <div className="modal-home">
-      {console.log('modal was opened')}
-      <div>
-        <form>
-          <input 
-            className="modal-column-input"
-            type="text"
-            required
-            placeholder="column name"
-            // do we want an onChange here or wait until the input is finished
-          />
-        </form>
+
+      <form className='modal-form'>
+        <h1>ADD COLUMN</h1>
+        <input 
+          className="modal-column-input"
+          type="text"
+          required
+          placeholder="column name"
+          // do we want an onChange here or wait until the input is finished
+        />
+      </form>
+      <div className='modal-button-cont'>
         <button className="modal-text-button"
           onClick={() => saveData()}>
             SAVE
@@ -68,6 +102,7 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setSh
             DELETE
         </button>
       </div>
+
       {showCardModal && <CardModal />}
     </div>
   )
@@ -91,9 +126,9 @@ const CardModal = ({  showCardModal,setShowCardModal }) => {
 
   return (
     <div className="modal-home">
-      <div>
-        <form>
-          <div>ADD CARD</div>
+
+        <form className='modal-form'>
+          <h1>ADD CARD</h1>
           <input 
             className="card-modal-input"
             type="text"
@@ -102,15 +137,17 @@ const CardModal = ({  showCardModal,setShowCardModal }) => {
             // do we want an onChange here or wait until the input is finished
           />
         </form>
-        <button className="modal-text-button"
-          onClick={() => addTask()}>
-           +
-        </button>
-        <button className="modal-text-button"
-          onClick={() => deleteTask()}>
-            X
-        </button>
-      </div>
+        <div className='modal-button-cont'>
+          <button className="modal-text-button"
+            onClick={() => addTask()}>
+            ADD CARD
+          </button>
+          <button className="modal-text-button"
+            onClick={() => deleteTask()}>
+              CANCEL
+          </button>
+        </div>
+
     </div>
   )
 }
