@@ -3,53 +3,107 @@ import { useState, useEffect } from "react";
 import  { ColumnModal, CardModal } from './Modals.jsx';
 import Column from './Column.jsx'
 
-function HomePage() {
+function HomePage({user, isLoggedIn, setLogin}) {
 
   // state to render a column creation modal
-  const [showColumnModal, setShowColumnModal] = useState(false)
+  const [ showColumnModal, setShowColumnModal ] = useState(false)
   // state to render a card creation modal
-  const [showCardModal, setShowCardModal] = useState(false)
-  const [columns, setColumns] = useState(null);
+  const [ showCardModal, setShowCardModal ] = useState(false)
+  // const [columnsState, setColumns] = useState(null);
+  const [ boardData, setBoardData ] = useState([]);
 
-//useEffect
-  //Make a fetch Request to the server for Column ID(s) associated with the user
-  //Check the cookie for authorization 
-    //fetch GET request to DB.
-      //Should receive an object which we can use to setState OR pass onto Columns component
+  //render columns and cards within 
+  // [
+  //   {
+  //       "_id": "640635f9e846af21bdd5652e",
+  //       "boardName": "testBoard",
+  //       "columns": [
+  //           {
+  //               "_id": "64065a6f664404268f5fc975",
+  //               "columnName": "col1",
+  //               "cards": [
+  //                   {
+  //                       "_id": "64065a6f664404268f5fc976",
+  //                       "cardText": "hello, I'm a card!"
+  //                   }
+  //               ]
+  //           }
+  //       ]
+  //   }
+  // ]
+    //This is real code do not delete:
+    let renderColumns = [];
 
+    useEffect(() => {
+
+      fetch('/api', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({username: user})
+      }).then((res) => res.json())
+      .then((data) => {
+        setBoardData(data);
+      })
+      .catch((error) => {
+        console.log('Error fetching boardData in APP.jsx:', error)
+      })
+    },[isLoggedIn])
+
+    console.log('BOARD DATA', boardData)
+
+
+    if (boardData.length !== 0) {
+      renderColumns = boardData[0].columns.map((column, index) => {
+          return (<Column key={index} columnName={column.columnName} cards={column.cards} setShowCardModal={setShowCardModal}/>)
+        })
+    }
+    let overlay = null;
+
+    useEffect(() => {
+      if (showColumnModal) overlay = <div className="overlay"></div>
+      else overlay = null;
+    }, [showColumnModal, showCardModal])
+    console.log('showColumnModal: ', showColumnModal)
 
     return (
-      <>
-        <div>
-          <div> Home Page
-            <button className="logOut" onClick={() => (console.log('logout button clicked '))}>LOG OUT</button>
+      <div className='homeCont'>
+
+        {overlay}
+        
+        <header className='homeHeader'>
+          <h1> Home Page </h1>
+          <button className="logOut" onClick={() => (setLogin(false))}>LOG OUT</button>
+
+        </header>
+      
+        <div className='boardDisplay'>
+          <div className="modal-box">
+            {/* when showModal is set to true a column modal will render */}
+            {/* having issues with page re-rendering when state is updated. modal does not stay up */}
+            {/* {showColumnModal && <ColumnModal showColumnModal={showColumnModal} setShowColumnModal={setShowColumnModal} />} */}
+            {showColumnModal ? (<ColumnModal 
+              showColumnModal={showColumnModal} 
+              setShowColumnModal={setShowColumnModal} 
+              showCardModal={showCardModal} 
+              setShowCardModal={setShowCardModal}
+              boardData={boardData}
+              setBoardData={setBoardData} />) 
+              : (<></>)
+            }
+            {showCardModal ? (<CardModal 
+              showCardModal={showCardModal} 
+              setShowCardModal={setShowCardModal} />) 
+              : (<></>)
+            }
+          </div>
+          <div className="column-container">
+            {renderColumns}
           </div>
           <div>
-              <button className="addColumn" onClick={() => setShowColumnModal(true)}>ADD MODAL</button>
-              {console.log(showColumnModal)}
+            <button className="addColumn" onClick={() => setShowColumnModal(true)}>ADD COLUMN</button>
           </div>
         </div>
-        <div className="modal-box">
-        {/* when showModal is set to true a column modal will render */}
-        {/* having issues with page re-rendering when state is updated. modal does not stay up */}
-        {/* {showColumnModal && <ColumnModal showColumnModal={showColumnModal} setShowColumnModal={setShowColumnModal} />} */}
-        {showColumnModal ? (<ColumnModal showColumnModal={showColumnModal} setShowColumnModal={setShowColumnModal} />) : (<></>)}
-        </div>
-        <div>
-          {/* Populate with Column components */}
-          {/* <Column columns={columns}/> */}
-        </div>
-      </form>
-      <div className="modal-box">
-      {/* when showModal is set to true a column modal will render */}
-      {/* having issues with page re-rendering when state is updated. modal does not stay up */}
-      {showColumnModal && <ColumnModal setShowColumnModal={setShowColumnModal} />}
       </div>
-      <div>
-        {/* //Populate with Column components */}
-        {/* <Column columns={columns}/> */}
-      </div>
-    </>
   );
 
 }

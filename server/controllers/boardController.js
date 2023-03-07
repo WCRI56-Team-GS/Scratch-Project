@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const boardController = {};
 
 boardController.getBoards = (req, res, next) => {
+  console.log('running boardController.getBoard. res.locals: ', res.locals)
   let { boardIds } = res.locals;
 
   Board.find({_id: {$in: boardIds}})

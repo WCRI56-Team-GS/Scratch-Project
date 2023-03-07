@@ -37,8 +37,11 @@ app.use(cors());
 app.use("/build", express.static(path.resolve(__dirname, "../build")));
 
 // route handlers
-app.post('/api', userController.getBoardIds, boardController.getBoards, (req, res) => {
-  res.status(200).json(res.locals.boards)
+app.post('/api', 
+  userController.getBoardIds, 
+  boardController.getBoards, 
+  (req, res) => {
+    res.status(200).json(res.locals.boards)
 })
 
 app.post(
@@ -50,7 +53,8 @@ app.post(
     // what should happen here on successful log in?
     console.log("completing post request to '/login");
     // res.redirect('/secret');
-    res.redirect("/");
+    res.sendstatus(200)
+    // res.redirect("/");
   }
 );
 

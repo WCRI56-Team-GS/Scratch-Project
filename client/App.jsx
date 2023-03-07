@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from './components/LoginPage.jsx';
 import SignUpPage from './components/SignUpPage.jsx';
 import HomePage from './components/HomePage.jsx';
@@ -8,20 +8,26 @@ import HomePage from './components/HomePage.jsx';
 
 const App = () => {
 
-  const [ signUpToggle, setSignUpToggle ] = useState('');
-  const [ user, setUser ] = useState("");
+  const [ signUpToggle, setSignUpToggle ] = useState(false);
+  const [ user, setUser ] = useState(''); //<-- Switch to an empty string when ready
   const [ password, setPassword ] = useState("")
-  const [ isLoggedIn, setLogin ] = useState(true);
+  const [ isLoggedIn, setLogin ] = useState(false); //<--- Switch to false when ready
+  const [loginError, setLoginError] = useState(false);
 
 
+  //SIGN-UP / SIGN-IN TOGGLE
   const toggle = () => {
     setSignUpToggle(!signUpToggle);
   }
 
+  useEffect(() => {
+
+  },[loginError, isLoggedIn])
+
   return (
     <>
-      <div>HELLLOOOO WORLDDDD</div>
-      {signUpToggle ? (
+      {isLoggedIn ? (<HomePage user={user} isLoggedIn={isLoggedIn} setLogin={setLogin}/>) :
+      (signUpToggle ? (
         <SignUpPage
         user={user}
         setUser={setUser}
@@ -40,18 +46,11 @@ const App = () => {
           toggle={toggle}
           isLoggedIn={isLoggedIn}
           setLogin={setLogin}
+          setLoginError={setLoginError}
         />
-
+      )
       )}
-      {/* <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginPage />}>
-            <Route path="signup" element={<SignUpPage />} />
-            <Route index element={<HomePage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter> */}
-      <HomePage/>
+      {loginError ? (<div>Incorrect username or password. Please try again</div>) : <></>}
     </>
   );
 }
@@ -67,6 +66,52 @@ export default App;
 // & then import a NoPage & have an error msg?
 */
 
+
+/*
+Routing:
+<SignUpPage />
+<LoginPage />
+<HomePage />
+
+<Router>
+  <Routes>
+    <Route 
+      path="/login" 
+      element={
+        <LoginPage
+          user={user}
+          setUser={setUser}
+          password={password}
+          setPassword={setPassword}
+          toggle={toggle}
+          isLoggedIn={isLoggedIn}
+          setLogin={setLogin}
+        />
+      }
+    />
+    <Route 
+      path="/signup" 
+      element={
+        <SignUpPage
+          user={user}
+          setUser={setUser}
+          password={password}
+          setPassword={setPassword}
+          toggle={toggle}
+          isLoggedIn={isLoggedIn}
+          setLogin={setLogin}
+        />
+      }
+    />
+    <Route 
+      path='/home' 
+      element={
+        <HomePage 
+        />} />
+  </Routes>
+</Router>
+
+*/
 
 /* tried useContext() 
   const [signUpToggle, setSignUpToggle]= useContext(UserProvider)
