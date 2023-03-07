@@ -38,6 +38,7 @@ app.use("/build", express.static(path.resolve(__dirname, "../build")));
 
 // route handlers
 app.post('/api', 
+  sessionController.isLoggedIn,
   userController.getBoardIds, 
   boardController.getBoards, 
   (req, res) => {
