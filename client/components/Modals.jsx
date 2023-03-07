@@ -25,28 +25,17 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setSh
   const saveData = () => {
     // get the value from the input field
     const newColumnName = document.querySelector('.modal-column-input').value;
-
     // store it somewhere (local?)
-    console.log('boardData from line 29: ', boardData);
-    console.log('typeof boardData[0]: ', typeof boardData[0]);
     // our local state needs to reflect added column
     const columnName = boardData[0]
-    console.log('line 33: ', columnName)
-    console.log('type of columnName: ', typeof columnName.columns)
 
     const newBoardData = boardData.map(board => {
-      console.log('board: ', board)
-      console.log('currBoardID: ', currBoardID)
       if (board._id === currBoardID) {
-        console.log('board and ID match')
         board.columns.push({columnName: newColumnName, cards: [{cardText: 'Hello, I\'m a new column!'}]})
-        console.log('board: ', board)
       }
       return board;
     })
-    console.log('newBoardData: ', newBoardData);
     setBoardData(newBoardData)
-    console.log(boardData)
 
 
     // [{board1}, {board2}, {board3}]
@@ -55,19 +44,6 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setSh
     // update current board
     // add to array of boards
     // setBoardData(newArrayOfBoards)
-
-
-
-    // setBoardData([{}])
-    // boardData = array of BoardObjs
-    // filter currentBoard 
-
-    // setBoardData((data) => ({
-    //   ...data,
-    //   columnName: newColumnName
-    // }))
-    // send a request to DB to udpate Board with new column
-    // toggle columnModal
 
     console.log('save data button is running')
     setShowColumnModal(!showColumnModal)  //toggle columnModal on / off
