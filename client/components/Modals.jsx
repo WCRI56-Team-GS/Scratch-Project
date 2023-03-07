@@ -25,19 +25,15 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setSh
     // get the value from the input field
     const newColumnName = document.querySelector('.modal-column-input').value;
 
-    // post users data to database
-    // setBoardData(data => {
-    //   ...data,
-      // newColumnName
-    // })
-    // onClick
-
     // store it somewhere (local?)
     console.log('boardData: ', boardData);
-    console.log('boardColumnData: ', boardData.columns);
-    // setBoardData();
-    // send a request to DB to udpate Board with new column
+    console.log('boardColumnData: ', boardData[0].columns);
     // our local state needs to reflect added column
+    // setBoardData(data => ({
+    //   ...data,
+    //   columns: columns.columnName.push(newColumnName)
+    // }))
+    // send a request to DB to udpate Board with new column
     // toggle columnModal
 
     console.log('save data button is running')
@@ -83,7 +79,9 @@ const ColumnModal = ({ showColumnModal, setShowColumnModal, showCardModal, setSh
 const CardModal = ({  showCardModal,setShowCardModal }) => {
 
   const addTask = () => {
+    const newCard = document.querySelector('card-modal-input').value;
     // post users data to database
+    set
     setShowCardModal(!showCardModal)
   }
 
@@ -97,7 +95,7 @@ const CardModal = ({  showCardModal,setShowCardModal }) => {
         <form>
           <div>ADD CARD</div>
           <input 
-            className="modal-input"
+            className="card-modal-input"
             type="text"
             required
             placeholders="add a task"

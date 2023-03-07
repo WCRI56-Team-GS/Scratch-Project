@@ -1,15 +1,39 @@
 .modal-home {
-
-}
-
-.modal-text-button {
-  
-}
-
-.columnCont {
   background-color: $color1;
   color: $color3;
   border-radius: 15px;
   padding: 10px;
+}
+
+.modal-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-column-input {
+  width: 150px;
+  height: 20px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: $color2;
+}
+
+
+.modal-text-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.columnCont {
+  display: flex;
+  flex-direction: column;
+  background-color: $color1;
+  color: $color3;
+  border-radius: 15px;
+  padding: 10px;
+  gap: 10px;
 
 }

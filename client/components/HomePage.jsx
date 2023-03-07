@@ -42,11 +42,7 @@ function HomePage({user, isLoggedIn, setLogin}) {
         body: JSON.stringify({username: user})
       }).then((res) => res.json())
       .then((data) => {
-        // console.log('Response from GET board data in APP.jsx:', data)
         setBoardData(data);
-        // return data;
-        // console.log('BOARD DATA', data[0]);
-        // console.log('BOARD COLUMN NAME', data[0]['columns']);
       })
       .catch((error) => {
         console.log('Error fetching boardData in APP.jsx:', error)
@@ -58,13 +54,21 @@ function HomePage({user, isLoggedIn, setLogin}) {
 
     if (boardData.length !== 0) {
       renderColumns = boardData[0].columns.map((column, index) => {
-          return (<Column key={index} boardName={boardData[0].boardName} cards={column.cards}/>)
+          return (<Column key={index} columnName={column.columnName} cards={column.cards} setShowCardModal={setShowCardModal}/>)
         })
     }
+    let overlay = null;
 
+    useEffect(() => {
+      if (showColumnModal) overlay = <div className="overlay"></div>
+      else overlay = null;
+    }, [showColumnModal, showCardModal])
+    console.log('showColumnModal: ', showColumnModal)
 
     return (
       <div className='homeCont'>
+
+        {overlay}
         
         <header className='homeHeader'>
           <h1> Home Page </h1>

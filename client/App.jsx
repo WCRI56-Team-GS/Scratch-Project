@@ -9,33 +9,20 @@ import HomePage from './components/HomePage.jsx';
 const App = () => {
 
   const [ signUpToggle, setSignUpToggle ] = useState(false);
-  const [ user, setUser ] = useState('');
+  const [ user, setUser ] = useState(''); //<-- Switch to an empty string when ready
   const [ password, setPassword ] = useState("")
   const [ isLoggedIn, setLogin ] = useState(false); //<--- Switch to false when ready
-  // const [ boardData, setBoardData ] = useState([]);
+  const [loginError, setLoginError] = useState(false);
 
-  //UPON LOGIN, FETCH BOARD DATA
-  // useEffect(() => {
-  //   console.log('running useEffect now in App.jsx')
-  //   console.log('user id: ', user)
-  //   fetch('/api', {
-  //     method: 'POST',
-  //     headers: { 'Content-Type': 'application/json' },
-  //     body: JSON.stringify({username: user})
-  //   }).then((res) => res.json())
-  //   .then((data) => {
-  //     console.log('Response from GET board data in APP.jsx:', data)
-  //     setBoardData(data);
-  //   })
-  //   .catch((error) => {
-  //     console.log('Error fetching boardData in APP.jsx:', error)
-  //   })
-  // }, [])
 
   //SIGN-UP / SIGN-IN TOGGLE
   const toggle = () => {
     setSignUpToggle(!signUpToggle);
   }
+
+  useEffect(() => {
+
+  },[loginError, isLoggedIn])
 
   return (
     <>
@@ -59,9 +46,11 @@ const App = () => {
           toggle={toggle}
           isLoggedIn={isLoggedIn}
           setLogin={setLogin}
+          setLoginError={setLoginError}
         />
       )
-      )} 
+      )}
+      {loginError ? (<div>Incorrect username or password. Please try again</div>) : <></>}
     </>
   );
 }

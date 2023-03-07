@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import HomePage from './HomePage.jsx'
 // import { Outlet, Link } from "react-router-dom";
 
-function LoginPage ({user, setUser, password, setPassword, toggle, isLoggedIn, setLogin, setBoardData}) {
+function LoginPage ({user, setUser, password, setPassword, toggle, isLoggedIn, setLogin, setBoardData, setLoginError}) {
 
     //HANDLE LOGIN
     const handleSubmit = (e) => {
@@ -14,9 +14,16 @@ function LoginPage ({user, setUser, password, setPassword, toggle, isLoggedIn, s
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(loginData)
         }).then((res) => {
-            setLogin(true);
+            console.log(res.status)
+            // if (res.status === 404) {
+            //     setLogin(false)
+            //     setLoginError(true)
+            // } else {
+                setLogin(true);
+                setLoginError(false);
+            // }
             console.log('logged in on LoginPage.jsx')
-            console.log('users data', user)
+            // console.log('users data', user)
         }).catch((error) => {
             console.log('incorrect username or password', error)
         }) 

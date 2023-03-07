@@ -1,20 +1,21 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
+// import { CardModal } from "./Modals";
 
 
 
-function Column ({boardName, cards}) {
+function Column ({columnName, cards, setShowCardModal}) {
   const renderCards = cards.map((card, index) => {
-    return (<div>{card.cardText}</div>);
+    return (<div key={index} className='card'>{card.cardText}</div>);
   })
 
   return (
     <div className='columnCont'>
-      <div>{boardName}</div>
+      <div>{columnName}</div>
       <div className='cardCont'>
       {renderCards}
       </div>
-      <div></div>
+    <button onClick={() => setShowCardModal(true)}>ADD CARD</button>
     </div>
   );
 }

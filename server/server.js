@@ -53,7 +53,8 @@ app.post(
     // what should happen here on successful log in?
     console.log("completing post request to '/login");
     // res.redirect('/secret');
-    res.redirect("/");
+    res.sendstatus(200)
+    // res.redirect("/");
   }
 );
 
