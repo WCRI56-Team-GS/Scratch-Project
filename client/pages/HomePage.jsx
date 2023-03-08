@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
-import  { ColumnModal, CardModal } from './Modals.jsx';
-import Column from './Column.jsx'
+import  { ColumnModal, CardModal } from '../components/Modals.jsx';
+import Column from '../components/Column.jsx'
+
+/**
+ * we want this to have a navbar holding multiple board buttons
+ *  board buttons should get by board _id 
+ * 
+ * board component should 
+ */
 
 function HomePage({user, isLoggedIn, setLogin}) {
   // state to render a column creation modal
@@ -35,7 +42,9 @@ function HomePage({user, isLoggedIn, setLogin}) {
     let renderColumns = [];
 
     useEffect(() => {
-
+      // TODO we have user id at this endpoint
+        // should be a get method using user id (cookies)
+        // load first board in board array?
       fetch('/api', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

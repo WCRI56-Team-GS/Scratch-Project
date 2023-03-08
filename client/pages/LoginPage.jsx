@@ -3,17 +3,22 @@ import { useState, useEffect } from 'react';
 import HomePage from './HomePage.jsx'
 // import { Outlet, Link } from "react-router-dom";
 
-function LoginPage ({user, setUser, password, setPassword, toggle, isLoggedIn, setLogin, setBoardData, setLoginError}) {
-
+function LoginPage () {
+    // propdrill {user, setUser, password, setPassword, toggle, isLoggedIn, setLogin, setBoardData, setLoginError}
+    // useState for username, password
+    // loggedIn checked cookie/session id to bypass login page and redirects them to home page
+        // Navigate to /home endpoint
     //HANDLE LOGIN
     const handleSubmit = (e) => {
         e.preventDefault();
         const loginData = {username: user, password: password}
+        // axios?
         fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(loginData)
         }).then((res) => {
+            // TODO switch to 400 status, reset input fields and boolean?
             console.log(res.status)
             if (res.status === 404) {
                 setLogin(false)
