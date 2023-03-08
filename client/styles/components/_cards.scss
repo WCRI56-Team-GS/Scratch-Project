@@ -1,7 +1,12 @@
 .card {
-  height: 100px;
   background-color: $color2;
   border-radius: 10px;
   color: black;
   padding: 10px;
+}
+
+.card-content-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }

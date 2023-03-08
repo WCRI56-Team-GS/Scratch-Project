@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
 import  { ColumnModal, CardModal } from '../components/Modals.jsx';
-import Column from '../components/Column.jsx'
+import Board from '../components/Board.jsx'
 
 /**
  * we want this to have a navbar holding multiple board buttons
@@ -41,23 +41,23 @@ function HomePage({user, isLoggedIn, setLogin}) {
     //This is real code do not delete:
     let renderColumns = [];
 
-    useEffect(() => {
-      // TODO we have user id at this endpoint
-        // should be a get method using user id (cookies)
-        // load first board in board array?
-      fetch('/api', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({username: user})
-      }).then((res) => res.json())
-      .then((data) => {
-        setBoardData(data);
-        setCurrBoardID(data[0]._id)
-      })
-      .catch((error) => {
-        console.log('Error fetching boardData in APP.jsx:', error)
-      })
-    },[isLoggedIn])
+    // useEffect(() => {
+    //   // TODO we have user id at this endpoint
+    //     // should be a get method using user id (cookies)
+    //     // load first board in board array?
+    //   fetch('/api', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({username: user})
+    //   }).then((res) => res.json())
+    //   .then((data) => {
+    //     setBoardData(data);
+    //     setCurrBoardID(data[0]._id)
+    //   })
+    //   .catch((error) => {
+    //     console.log('Error fetching boardData in APP.jsx:', error)
+    //   })
+    // },[isLoggedIn])
 
     console.log('BOARD DATA', boardData)
 
@@ -104,9 +104,7 @@ function HomePage({user, isLoggedIn, setLogin}) {
               : (<></>)
             }
           </div>
-          <div className="column-container">
-            {renderColumns}
-          </div>
+            <Board />
           <div>
             <button className="addColumn" onClick={() => setShowColumnModal(true)}>ADD COLUMN</button>
           </div>

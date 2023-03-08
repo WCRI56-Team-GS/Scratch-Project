@@ -1,23 +1,26 @@
 import React, { Component } from "react";
 import { useState, useEffect } from "react";
+import Card from "./Card.jsx";
 // import { CardModal } from "./Modals";
 
 
 
 function Column ({columnName, cards, setShowCardModal}) {
-  const renderCards = cards.map((card, index) => {
-    return (<div key={index} className='card'>{card.cardText}</div>);
-  })
+  // const renderCards = cards.map((card, index) => {
+  //   return (<div key={index} className='card'>{card.cardText}</div>);
+  // })
 
   return (
     <div className='columnCont'>
-      <div>{columnName}</div>
+      <div>Dummy Column Name</div>
       <div className='cardCont'>
-      {renderCards}
+        <Card />
+        <Card />
+        <Card />
       </div>
-    <button onClick={() => setShowCardModal(true)}>ADD CARD</button>
+    <button >ADD CARD</button>
     </div>
   );
 }
-
+// onClick={() => setShowCardModal(true)}
 export default Column;
