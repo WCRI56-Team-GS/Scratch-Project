@@ -1,58 +1,40 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LoginPage from './components/LoginPage.jsx';
-import SignUpPage from './components/SignUpPage.jsx';
-import HomePage from './components/HomePage.jsx';
+
+// Pages
+import LoginPage from './pages/LoginPage.jsx';
+import SignUpPage from './pages/SignUpPage.jsx';
+import HomePage from './pages/HomePage.jsx';
 
 
 const App = () => {
 
-  const [ signUpToggle, setSignUpToggle ] = useState(false);
-  const [ user, setUser ] = useState(''); //<-- Switch to an empty string when ready
-  const [ password, setPassword ] = useState("")
-  const [ isLoggedIn, setLogin ] = useState(false); //<--- Switch to false when ready
-  const [loginError, setLoginError] = useState(false);
+  // should not need these state functionality in App.js and more in their used pages. no need to prop drill
+  // const [ signUpToggle, setSignUpToggle ] = useState(false);
+  // const [ user, setUser ] = useState(''); //<-- Switch to an empty string when ready
+  // const [ password, setPassword ] = useState("")
+  // const [ isLoggedIn, setLogin ] = useState(false); //<--- Switch to false when ready
+  // const [loginError, setLoginError] = useState(false);
 
 
-  //SIGN-UP / SIGN-IN TOGGLE
-  const toggle = () => {
-    setSignUpToggle(!signUpToggle);
-  }
+  // //SIGN-UP / SIGN-IN TOGGLE
+  // const toggle = () => {
+  //   setSignUpToggle(!signUpToggle);
+  // }
 
-  useEffect(() => {
-    if (loginError === true) alert('Incorrect username or password. Please try again');
-  },[loginError])
+  // useEffect(() => {
+  //   if (loginError === true) alert('Incorrect username or password. Please try again');
+  // },[loginError])
 
   return (
-    <>
-      {isLoggedIn ? (<HomePage user={user} isLoggedIn={isLoggedIn} setLogin={setLogin}/>) :
-      (signUpToggle ? (
-        <SignUpPage
-        user={user}
-        setUser={setUser}
-        password={password}
-        setPassword={setPassword}
-        toggle={toggle}
-        isLoggedIn={isLoggedIn}
-        setLogin={setLogin}
-      />
-      ) : (
-        <LoginPage
-          user={user}
-          setUser={setUser}
-          password={password}
-          setPassword={setPassword}
-          toggle={toggle}
-          isLoggedIn={isLoggedIn}
-          setLogin={setLogin}
-          setLoginError={setLoginError}
-        />
-      )
-      )}
-      {/* {loginError ? (<div>Incorrect username or password. Please try again</div>) : <></>} */}
-      
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/home" element={<HomePage />} />
+      </Routes>
+    </Router>
   );
 }
  
@@ -119,3 +101,33 @@ Routing:
   console.log('SIGNUPTOGGLE from app: ',signUpToggle)
   console.log('UserProvider from APP.jsx', UserProvider)
 */
+
+
+
+{/* <>
+      {isLoggedIn ? (<HomePage user={user} isLoggedIn={isLoggedIn} setLogin={setLogin}/>) :
+      (signUpToggle ? (
+        <SignUpPage
+        user={user}
+        setUser={setUser}
+        password={password}
+        setPassword={setPassword}
+        toggle={toggle}
+        isLoggedIn={isLoggedIn}
+        setLogin={setLogin}
+      />
+      ) : (
+        <LoginPage
+          user={user}
+          setUser={setUser}
+          password={password}
+          setPassword={setPassword}
+          toggle={toggle}
+          isLoggedIn={isLoggedIn}
+          setLogin={setLogin}
+          setLoginError={setLoginError}
+        />
+      )
+      )}
+      {/* {loginError ? (<div>Incorrect username or password. Please try again</div>) : <></>} */}
+      

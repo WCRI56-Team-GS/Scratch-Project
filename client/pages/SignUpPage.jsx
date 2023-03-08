@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 
 
 function SignUpPage ({user, setUser, password, setPassword, toggle, isLoggedIn, setLogin}) {
+// same TODOs as login, instead navigate to '/'
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
